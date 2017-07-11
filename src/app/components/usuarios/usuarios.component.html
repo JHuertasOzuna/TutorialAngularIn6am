@@ -1,0 +1,18 @@
+<h2>Lista de Usuarios</h2>
+<hr>
+<table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th>#</th>
+      <th>Nick</th>
+      <th>Contraseña</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let usuario of usuarioService.usuarios">
+      <td>{{usuario.idUsuario}}</td>
+      <td>{{usuario.nick}}</td>
+      <td>{{usuario.contrasena}}</td>
+    </tr>
+  </tbody>
+</table>

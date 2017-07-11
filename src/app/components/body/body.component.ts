@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-body',
@@ -8,10 +7,9 @@ import { UsuarioService } from '../../services/usuario.service';
 
 export class BodyComponent implements OnInit{
 
-  constructor(private _usuarioService:UsuarioService) { }
+  constructor() { }
 
   ngOnInit() {
-    this._usuarioService.getUsuarios().subscribe();
   }
 
   mostrar:boolean = false;
