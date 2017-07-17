@@ -1,3 +1,25 @@
-<p>
-  contacto works!
-</p>
+<h1>Contactos</h1>
+<button class="btn btn-outline-primary"
+[routerLink]="['/dashboard/contacto', 'nuevo']">Nuevo Contacto</button>
+<hr>
+<div class="card-columns">
+  <div class="card"
+  *ngFor="let contacto of contactos">
+    <div class="card-block">
+      <h4 class="card-title">{{ contacto.nombre | uppercase }}</h4>
+      <p class="card-text">{{ contacto.telefono }}</p>
+      <footer>
+        <button
+          (click)="borrarContacto(contacto.idContacto)"
+          class="btn btn-block btn-outline-danger">
+          <strong>Eliminar</strong>
+        </button>
+        <button
+          [routerLink]="['/dashboard/contacto', contacto.idContacto]"
+          class="btn btn-block btn-outline-success">
+          <strong>Ver mas</strong>
+        </button>
+      </footer>
+    </div>
+  </div>
+</div>

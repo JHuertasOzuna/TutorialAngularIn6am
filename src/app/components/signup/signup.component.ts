@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-signup',
@@ -8,8 +10,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class SignupComponent implements OnInit {
   formularioSignUp:FormGroup;
-
-  constructor() {  }
+  notificacion:any = {
+    estado: false,
+    mensaje: ""
+  }
+  constructor(
+    private usuarioService:UsuarioService,
+    private router:Router
+  ) {}
 
   ngOnInit() {
     this.formularioSignUp = new FormGroup({
@@ -18,7 +26,18 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  public iniciarSesion() {
-    console.log(this.formularioSignUp.value);
+  public registrar() {
+    this.usuarioService.registrar(this.formularioSignUp.value)
+    .subscribe(res => {
+      if(res.estado) {
+        this.notificacion.estado = res.estado;
+        this.notificacion.mensaje = res.mensaje
+        this.formularioSignUp.reset();
+
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 5000);
+      }
+    });
   }
 }

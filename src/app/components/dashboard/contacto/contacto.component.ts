@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ContactoService } from '../../../services/contacto.service';
 
 @Component({
   selector: 'app-contacto',
@@ -7,9 +8,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactoComponent implements OnInit {
 
-  constructor() { }
+  contactos:any[] = [];
 
-  ngOnInit() {
+  constructor(
+    private contactoService:ContactoService
+  ) { }
+
+  public inicializar() {
+    this.contactoService.getContactos().subscribe(data => {
+      this.contactos = data;
+    });
   }
 
+  ngOnInit() {
+    this.inicializar();
+  }
+
+  borrarContacto(idContacto:any) {
+    this.contactoService.eliminarContacto(idContacto)
+    .subscribe(res => {
+      if(res.estado) {
+        this.inicializar();
+      }
+    });
+  }
 }
